@@ -4,8 +4,8 @@ from django.urls import path, include
 
 router = routers.DefaultRouter()
 
-router.register('api/cotizacion', CotizacionProductoViewSet)
-router.register('api/cotizacion', CotizacionPresupuestoViewSet)
+router.register('api/pres_producto', CotizacionProductoViewSet)
+router.register('api/presupuesto', CotizacionPresupuestoViewSet)
 
 
 urlpatterns = [
