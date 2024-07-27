@@ -7,7 +7,7 @@ class ProductoAdicionalInline(admin.TabularInline):
 
 class PresupuestoAdmin(admin.ModelAdmin):
     inlines = [ProductoAdicionalInline]
-    list_display = ('empresa', 'nombre_trabajo', 'fecha_emision', 'aprobado')
+    list_display = ('empresa', 'nombre_trabajo', 'usuario', 'fecha_emision', 'aprobado')
     search_fields = ('empresa', 'nombre_trabajo')
     list_filter = ('aprobado', 'fecha_emision')
 
