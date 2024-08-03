@@ -25,6 +25,8 @@ urlpatterns = [
     path('tareas/', views.tareas, name='tareas'),
     path('logout/', views.cerrar_sesion, name='logout'),
     path('login/', views.iniciar_sesion, name='login'),
-    path('', include('cotizacion.urls'))
+    path('', include('cotizacion.urls')),
+    path('trabajos/', include('trabajos.urls')),
+
 
 ]
