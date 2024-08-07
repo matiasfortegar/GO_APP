@@ -3,11 +3,13 @@ from .models import Presupuesto, Producto
 
 class ProductoAdicionalInline(admin.TabularInline):
     model = Producto
-    extra = 1  # Número de formularios adicionales vacíos a mostrar
+    extra = 0  # Número de formularios adicionales vacíos a mostrar
+
+
 
 class PresupuestoAdmin(admin.ModelAdmin):
     inlines = [ProductoAdicionalInline]
-    list_display = ('empresa', 'nombre_trabajo', 'usuario', 'fecha_emision', 'aprobado')
+    list_display = ('empresa', 'nombre_trabajo', 'usuario', 'total_valores_productos', 'fecha_emision', 'aprobado')
     search_fields = ('empresa', 'nombre_trabajo')
     list_filter = ('aprobado', 'fecha_emision')
 
@@ -20,5 +22,10 @@ class PresupuestoAdmin(admin.ModelAdmin):
             'fields': ('fecha_emision', 'fecha_ok', 'usuario', 'aprobado'),
         }),
     )
+
+    def total_valores_productos(self, obj):
+        total = obj.total_valores_productos()
+        return f"{'$ '}{total}" 
+    total_valores_productos.short_description = 'Valor Total'
 
 admin.site.register(Presupuesto, PresupuestoAdmin)
