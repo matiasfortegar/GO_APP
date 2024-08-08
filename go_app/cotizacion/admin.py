@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Presupuesto, Producto
 
+# Register your models here.
+
+
 class ProductoAdicionalInline(admin.TabularInline):
     model = Producto
     extra = 0  # Número de formularios adicionales vacíos a mostrar

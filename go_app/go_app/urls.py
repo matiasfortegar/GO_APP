@@ -18,6 +18,7 @@ from django.urls import path, include
 from app_back_end import views
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('tareas/', views.tareas, name='tareas'),
     path('logout/', views.cerrar_sesion, name='logout'),
     path('login/', views.iniciar_sesion, name='login'),
-    path('', include('cotizacion.urls'))
+    path('', include('cotizacion.urls')),
+    path('', include('trabajos.urls')),
 
 ]
