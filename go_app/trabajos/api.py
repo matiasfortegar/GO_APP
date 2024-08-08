@@ -1,8 +1,7 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from .models import OrdenTrabajo
-from .serializers import OrdenTrabajoSerial
+from .serializers import OrdenTrabajoSerializer
 
 class OrdenTrabajoViewSet(viewsets.ModelViewSet):
     queryset = OrdenTrabajo.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = OrdenTrabajoSerial
+    serializer_class = OrdenTrabajoSerializer
