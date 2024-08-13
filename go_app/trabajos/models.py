@@ -3,5 +3,5 @@ from cotizacion.models import Presupuesto
 
 
 class OrdenTrabajo(models.Model):
-    OT =  models.ForeignKey(Presupuesto, related_name='productos', on_delete=models.CASCADE)
+    Orden_trabajo =  models.ForeignKey(Presupuesto, related_name='productos', on_delete=models.CASCADE)
     
