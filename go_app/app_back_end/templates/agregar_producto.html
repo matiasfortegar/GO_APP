@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Agregar Producto al Presupuesto: {{ presupuesto.nombre_trabajo }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar Producto</button>
+</form>
+
+{% endblock %}

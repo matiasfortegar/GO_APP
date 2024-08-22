@@ -17,17 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from app_back_end import views
 
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
-    path('tareas/', views.tareas, name='tareas'),
+    path('presupuestos/', views.Presupuestos, name='presupuestos'),
     path('logout/', views.cerrar_sesion, name='logout'),
     path('login/', views.iniciar_sesion, name='login'),
+    path('agregar_presupuesto/', views.agregar_producto, name='agregar_presupuesto'),
+    path('crear_presupuesto/', views.crear_presupuesto, name='crear_presupuesto'),
+    path('trabajos/', views.crear_trabajo, name='trabajos'),
     path('', include('cotizacion.urls')),
-    path('trabajos/', include('trabajos.urls')),
+    path('', include('trabajos.urls')),
 
 
 ]

@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.http import HttpResponse
+from trabajos.forms import TrabajoPresupuestoForm, TrabajoProductoForm
+from cotizacion.forms import PresupuestoForm, ProductoForm
 
 # Create your views here.
 def home(request):
@@ -33,8 +34,23 @@ def signup(request):
             "error" : 'Contraseña no cohincide'
         })
 
-def tareas(request):
-   return render(request, 'tareas.html')
+def Presupuestos(request):
+   return render(request, 'presupuestos.html')
+
+def agregar_producto(request):
+   return render(request, 'agregar_producto.html')
+
+def crear_presupuesto(request):
+   return render(request, 'crear_presupuesto.html', {
+            'form': PresupuestoForm,
+      'form': ProductoForm
+   })
+
+def crear_trabajo(request):
+   return render(request, 'trabajos.html', {
+      'form': TrabajoPresupuestoForm,
+      'form': TrabajoProductoForm
+   })
 
 def cerrar_sesion(request):
    logout(request)

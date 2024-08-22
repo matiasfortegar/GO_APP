@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -24,7 +23,12 @@ class Presupuesto(models.Model):
     aprobado = models.BooleanField(default=False)
     fecha_emision = models.DateField()
     fecha_ok = models.DateField(blank=True, null=True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='presupuestos_cotizacion')
+
+
+    class Meta:
+        db_table = 'cotizacion_presupuesto'
+        managed = False  # Django no creará ni gestionará esta tabla
 
 
     def save(self, *args, **kwargs):

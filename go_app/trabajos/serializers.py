@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from .models import OrdenTrabajo
+from .models import TrabPresupuesto, TrabProducto
 
-class OrdenTrabajoSerial(serializers.ModelSerializer):
+class TrabajopresupuestoSerial(serializers.ModelSerializer):
     class Meta: 
-        model = OrdenTrabajo
+        model = TrabPresupuesto
+        fields = '__all__'
+
+class TrabajoproductoSerial(serializers.ModelSerializer):
+    class Meta: 
+        model = TrabProducto
         fields = '__all__'
