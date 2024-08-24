@@ -1,4 +1,4 @@
-from rest_framework import routers
+"""from rest_framework import routers
 from .api import CotizacionPresupuestoViewSet, CotizacionProductoViewSet
 from django.urls import path, include
 
@@ -11,4 +11,4 @@ router.register('api/presupuesto', CotizacionPresupuestoViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]
-#aa
+#aa"""

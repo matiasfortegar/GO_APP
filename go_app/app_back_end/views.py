@@ -1,8 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.http import HttpResponse
+from trabajos.forms import TrabajoPresupuestoForm, TrabajoProductoForm
+from cotizacion.forms import PresupuestoForm, ProductoForm
+from trabajos.models import OrdenTrabajo
+from cotizacion.models import Presupuesto, Producto
+from django.forms import inlineformset_factory
+
 
 # Create your views here.
 def home(request):
@@ -20,7 +25,7 @@ def signup(request):
             user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
             user.save()
             login(request, user)
-            return redirect('tareas')
+            return redirect('trabajos')
            
            except:
             return render(request, 'signup.html',{
@@ -33,8 +38,50 @@ def signup(request):
             "error" : 'Contraseña no cohincide'
         })
 
-def tareas(request):
-   return render(request, 'tareas.html')
+def trabajos(request):
+   trabajos = OrdenTrabajo.objects.all()
+   context = {'trabajos':trabajos}
+   return render(request, 'trabajos.html', context)
+
+def presupuestos(request):
+   presupuestos = Presupuesto.objects.all()
+   context = {'presupuestos':presupuestos}
+   return render(request, 'presupuestos.html', context)
+
+
+def agregar_productos(request, presupuesto_id):
+    presupuesto = get_object_or_404(Presupuesto, id=presupuesto_id)
+    ProductoFormSet = inlineformset_factory(Presupuesto, Producto, form=ProductoForm, extra=1)
+    
+    if request.method == 'POST':
+        formset = ProductoFormSet(request.POST, instance=presupuesto)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/presupuestos/')
+    else:
+        formset = ProductoFormSet(instance=presupuesto)
+    
+    context = {'formset': formset, 'presupuesto': presupuesto}
+    return render(request, 'agregar_productos.html', context)
+   
+
+def crear_presupuestos(request):
+    form = PresupuestoForm()
+
+    if request.method == 'POST':
+        form = PresupuestoForm(request.POST)
+        if form.is_valid():
+            presupuesto = form.save() 
+            return redirect('agregar_productos', presupuesto_id=presupuesto.id)
+    context = {'form': form}
+    return render(request, 'crear_presupuestos.html', context)
+
+
+def crear_trabajo(request):
+   return render(request, 'trabajos.html', {
+      'form': TrabajoPresupuestoForm,
+      'form': TrabajoProductoForm,
+   })
 
 def cerrar_sesion(request):
    logout(request)

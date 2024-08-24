@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Presupuestos</h1>
+
+<ul>
+    {% for presupuesto in presupuestos %}
+    <li>
+        <h1>{{ presupuesto.nombre_trabajo }}</h1>
+        <p>{{ presupuesto.empresa }}</p>
+        <p>{{ presupuesto.aprobado }}</p>
+        <a href="{% url 'agregar_productos' presupuesto.id %}">Agregar productos</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

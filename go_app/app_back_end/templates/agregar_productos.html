@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Agregar Productos para {{presupuesto.nombre_trabajo}}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    
+    <!-- Mostrar los formularios del formset -->
+    {% for form in formset %}
+        {{ form.as_p }}
+    {% endfor %}
+
+    <button type="submit">
+        Guardar
+    </button>
+    <button type="button" id="add-form-button">Agregar otro producto</button>
+</form>
+
+
+<script>
+    document.getElementById('add-form-button').addEventListener('click', function() {
+        var container = document.getElementById('formset-container');
+        var totalForms = document.getElementById('id_form-TOTAL_FORMS');
+        var currentFormCount = container.getElementsByClassName('form-row').length;
+        
+        if (currentFormCount < 1000) { 
+            var newForm = container.getElementsByClassName('form-row')[0].cloneNode(true);
+            
+            newForm.innerHTML = newForm.innerHTML.replace(/form-(\d+)-/g, 'form-' + currentFormCount + '-');
+            
+            var inputs = newForm.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                var inputType = inputs[i].type;
+                if (inputType === 'text' || inputType === 'number' || inputType === 'textarea') {
+                    inputs[i].value = '';
+                } else if (inputType === 'checkbox' || inputType === 'radio') {
+                    inputs[i].checked = false;
+                }
+            }
+            
+            // Append the new form to the container
+            container.appendChild(newForm);
+            
+            // Increment the total form count
+            totalForms.value = currentFormCount + 1;
+        }
+    });
+</script>
+
+{% endblock %}

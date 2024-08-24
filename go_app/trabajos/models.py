@@ -1,5 +1,5 @@
 from django.db import models
-from cotizacion.models import Presupuesto, Producto
+from cotizacion.models import Presupuesto
 
 class OrdenTrabajo(models.Model):
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.CASCADE)
@@ -9,6 +9,10 @@ class OrdenTrabajo(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.empresa} - {self.nombre_trabajo}"
+
+"""
     def save(self, *args, **kwargs):
         # Copiar datos del presupuesto al crear una nueva orden de trabajo
         if not self.id: # type: ignore
@@ -16,6 +20,8 @@ class OrdenTrabajo(models.Model):
             self.empresa = self.presupuesto.empresa
             self.fecha_ok = self.presupuesto.fecha_ok
         super(OrdenTrabajo, self).save(*args, **kwargs)
+
+"""
 
 class ProductoOrden(models.Model):
     orden_trabajo = models.ForeignKey(OrdenTrabajo, related_name='productos', on_delete=models.CASCADE)
@@ -29,6 +35,8 @@ class ProductoOrden(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=0)
     detalle_producto = models.TextField(blank=True, null=True)
 
+
+"""
     def save(self, *args, **kwargs):
         if not self.id: # type: ignore
             presupuesto_producto = Producto.objects.get(id=self.id) # type: ignore
@@ -42,3 +50,5 @@ class ProductoOrden(models.Model):
             self.valor = presupuesto_producto.valor
             self.detalle_producto = presupuesto_producto.detalle_producto
         super(ProductoOrden, self).save(*args, **kwargs)
+
+"""

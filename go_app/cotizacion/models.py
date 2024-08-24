@@ -3,12 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-class Precio(models.Model):
-    descripcion = models.CharField(max_length=255)
-    valor = models.DecimalField(max_digits=10, decimal_places=0)
-
-    def __str__(self):
-        return f"{self.descripcion}: {self.valor}"
 
 class Presupuesto(models.Model):
     TERMINACION_CHOICES = [
@@ -21,7 +15,7 @@ class Presupuesto(models.Model):
     empresa = models.CharField(max_length=255)
     nombre_trabajo = models.CharField(max_length=255)
     detalle = models.TextField(blank=True, null=True)
-    aprobado = models.BooleanField(default=False)
+    aprobado = models.BooleanField(null=False)
     fecha_emision = models.DateField()
     fecha_ok = models.DateField(blank=True, null=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)

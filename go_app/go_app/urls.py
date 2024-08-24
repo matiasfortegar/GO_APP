@@ -22,11 +22,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
-    path('tareas/', views.tareas, name='tareas'),
+    path('trabajos/', views.trabajos, name='trabajos'),
+    path('presupuestos/', views.presupuestos, name='presupuestos'),
+    path('presupuestos/<int:presupuesto_id>/agregar_productos/', views.agregar_productos, name='agregar_productos'),
+    path('crear_presupuestos/', views.crear_presupuestos, name='crear_presupuestos'),
     path('logout/', views.cerrar_sesion, name='logout'),
     path('login/', views.iniciar_sesion, name='login'),
-    path('', include('cotizacion.urls')),
-    path('trabajos/', include('trabajos.urls')),
+    #path('', include('cotizacion.urls')),
+    #path('trabajos/', include('trabajos.urls')),    
 
 
 ]

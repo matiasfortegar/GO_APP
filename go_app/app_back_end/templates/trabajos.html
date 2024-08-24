@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Trabajos</h1>
+
+{% csrf_token %}
+<ul>
+    {% for trabajo in trabajos %}
+    <li>
+        <h1>{{trabajo.nombre_trabajo}}</h1>
+        <p>{{trabajo.empresa}}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
