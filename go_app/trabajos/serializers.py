@@ -1,4 +1,4 @@
-from rest_framework import serializers
+"""from rest_framework import serializers
 from .models import OrdenTrabajo, ProductoOrden
 
 class ProductoOrdenSerializer(serializers.ModelSerializer):
@@ -11,4 +11,4 @@ class OrdenTrabajoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrdenTrabajo
-        fields = '__all__'
+        fields = '__all__'"""

@@ -7,10 +7,14 @@
 <ul>
     {% for presupuesto in presupuestos %}
     <li>
-        <h1>{{ presupuesto.nombre_trabajo }}</h1>
-        <p>{{ presupuesto.empresa }}</p>
-        <p>{{ presupuesto.aprobado }}</p>
-        <a href="{% url 'agregar_productos' presupuesto.id %}">Agregar productos</a>
+        <a href="{% url 'presupuestos_detalle' presupuesto.id %}">
+            <h1>{{ presupuesto.nombre_trabajo }}</h1>
+            <p>{{ presupuesto.empresa }}</p>
+    
+            <a href="{% url 'agregar_productos' presupuesto.id %}" class="boton">
+                <button>Agregar otro producto</button>
+            </a>  
+        </a>
     </li>
     {% endfor %}
 </ul>

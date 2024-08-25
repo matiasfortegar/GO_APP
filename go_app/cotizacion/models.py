@@ -16,7 +16,7 @@ class Presupuesto(models.Model):
     nombre_trabajo = models.CharField(max_length=255)
     detalle = models.TextField(blank=True, null=True)
     aprobado = models.BooleanField(null=False)
-    fecha_emision = models.DateField()
+    fecha_emision = models.DateTimeField(auto_now_add=True)
     fecha_ok = models.DateField(blank=True, null=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 

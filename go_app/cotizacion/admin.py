@@ -12,6 +12,7 @@ class PresupuestoAdmin(admin.ModelAdmin):
     list_display = ('empresa', 'nombre_trabajo', 'usuario', 'total_valores_productos', 'fecha_emision', 'aprobado')
     search_fields = ('empresa', 'nombre_trabajo')
     list_filter = ('aprobado', 'fecha_emision')
+    readonly_fields = ('fecha_emision', )
 
     # Personalizar la disposición de los campos en el formulario de administración
     fieldsets = (

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Duplicar Presupuesto</h1>
+<h3>Presupuesto: {{ presupuesto.nombre_trabajo }} - {{ presupuesto.empresa }}</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    <h4>Productos:</h4>
+    <ul>
+        {% for producto in productos %}
+        <li>{{ producto.nombre_producto }} - {{ producto.cantidad }} unidades</li>
+        {% endfor %}
+    </ul>
+
+    <button type="submit">Duplicar como Orden de Trabajo</button>
+</form>
+{% endblock %}

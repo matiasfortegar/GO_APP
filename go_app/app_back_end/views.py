@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from trabajos.forms import TrabajoPresupuestoForm, TrabajoProductoForm
 from cotizacion.forms import PresupuestoForm, ProductoForm
-from trabajos.models import OrdenTrabajo
+from trabajos.models import OrdenTrabajo, ProductoOrden
 from cotizacion.models import Presupuesto, Producto
 from django.forms import inlineformset_factory
 
@@ -39,9 +39,54 @@ def signup(request):
         })
 
 def trabajos(request):
-   trabajos = OrdenTrabajo.objects.all()
-   context = {'trabajos':trabajos}
-   return render(request, 'trabajos.html', context)
+    # Filtrar solo los presupuestos aprobados
+    presupuestos_aprobados = Presupuesto.objects.filter(aprobado=True)
+    context = {'presupuestos': presupuestos_aprobados}
+    return render(request, 'trabajos.html', context)
+
+"""
+    def trabajos(request):
+        presupuestos_aprobados = Presupuesto.objects.filter(aprobado=True)
+        context = {'presupuestos': presupuestos_aprobados}
+        return render(request, 'trabajos.html', context)
+"""
+
+def duplicar_presupuesto(request, presupuesto_id):
+    # Obtener el presupuesto y sus productos asociados
+    presupuesto = get_object_or_404(Presupuesto, id=presupuesto_id)
+    productos = Producto.objects.filter(presupuesto=presupuesto)
+    
+    # Si el formulario se ha enviado
+    if request.method == 'POST':
+        # Crear la Orden de Trabajo duplicada
+        orden_trabajo = OrdenTrabajo.objects.create(
+            empresa=presupuesto.empresa,
+            nombre_trabajo=presupuesto.nombre_trabajo,
+            detalle=presupuesto.detalle,
+            usuario=presupuesto.usuario,
+            presupuesto_original=presupuesto
+        )
+        
+        # Duplicar los productos asociados al presupuesto
+        for producto in productos:
+            ProductoOrden.objects.create(
+                orden_trabajo=orden_trabajo,
+                nombre_producto=producto.nombre_producto,
+                cantidad=producto.cantidad,
+                cantidad_pliego=producto.cantidad_pliego,
+                medida_ancho=producto.medida_ancho,
+                medida_alto=producto.medida_alto,
+                papel=producto.papel,
+                terminacion=producto.terminacion,
+                valor=producto.valor,
+                detalle_producto=producto.detalle_producto
+            )
+        
+        return redirect('trabajos')
+    context = {'presupuesto': presupuesto, 'productos': productos}
+    return render(request, 'duplicar_presupuesto.html', context)
+
+
 
 def presupuestos(request):
    presupuestos = Presupuesto.objects.all()
@@ -57,13 +102,28 @@ def agregar_productos(request, presupuesto_id):
         formset = ProductoFormSet(request.POST, instance=presupuesto)
         if formset.is_valid():
             formset.save()
-            return redirect('/presupuestos/')
+            return redirect('presupuestos')
     else:
         formset = ProductoFormSet(instance=presupuesto)
     
     context = {'formset': formset, 'presupuesto': presupuesto}
     return render(request, 'agregar_productos.html', context)
-   
+
+def presupuestos_detalle(request, presupuesto_id):
+   if request.method =='GET':
+        presupuesto = get_object_or_404(Presupuesto, pk=presupuesto_id)
+        form = PresupuestoForm(instance=presupuesto)
+        context = {'presupuesto': presupuesto, 'form': form}
+        return render(request, 'presupuestos_detalle.html', context)
+   else:
+        try:
+            presupuesto = get_object_or_404(Presupuesto, pk=presupuesto_id)
+            form = PresupuestoForm(request.POST, instance=presupuesto)
+            form.save()
+            return redirect('presupuestos')
+        except ValueError:
+           context = {'presupuesto': presupuesto, 'form': form, 'error': "Error al actulizar"}
+           return render(request, 'presupuestos_detalle.html', context)
 
 def crear_presupuestos(request):
     form = PresupuestoForm()

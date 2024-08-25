@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1>Trabajos</h1>
-
-{% csrf_token %}
+<h1>Presupuestos Aprobados</h1>
 <ul>
-    {% for trabajo in trabajos %}
-    <li>
-        <h1>{{trabajo.nombre_trabajo}}</h1>
-        <p>{{trabajo.empresa}}</p>
+    {% for presupuesto in presupuestos %}
+    <li>                                                                                                                                                            
+        <h3>{{ presupuesto.nombre_trabajo }} - {{ presupuesto.empresa }}</h3>
+        <a href="{% url 'duplicar_presupuesto' presupuesto.id %}">
+            <button>Generar OT</button>
+        </a>
     </li>
     {% endfor %}
 </ul>
+
 {% endblock %}

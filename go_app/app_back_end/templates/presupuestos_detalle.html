@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{presupuesto.nombre_trabajo}}</h1>
+
+{{error}}
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Guardar</button>
+</form>
+
+{% endblock %}
