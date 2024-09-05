@@ -1,17 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
 
-<h1>{{presupuesto.nombre_trabajo}}</h1>
+            <h1 class="text-center">{{presupuesto.nombre_trabajo}}</h1>
 
-{{error}}
-
-<form method="POST">
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit">Guardar</button>
-</form>
+                <form method="POST">
+                        {{error}}
+                        {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="col text-center">
+                        <button class="btn btn-primary" type="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</main>
 
 {% endblock %}

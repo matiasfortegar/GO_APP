@@ -1,18 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Duplicar Presupuesto</h1>
-<h3>Presupuesto: {{ presupuesto.nombre_trabajo }} - {{ presupuesto.empresa }}</h3>
 
-<form method="POST">
-    {% csrf_token %}
-    <h4>Productos:</h4>
-    <ul>
-        {% for producto in productos %}
-        <li>{{ producto.nombre_producto }} - {{ producto.cantidad }} unidades</li>
-        {% endfor %}
-    </ul>
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
 
-    <button type="submit">Duplicar como Orden de Trabajo</button>
+            <h1 class="text-center">Duplicar Presupuesto</h1>
+            <h3 class="text-center">Presupuesto: {{ presupuesto.nombre_trabajo }} - {{ presupuesto.empresa }}</h3>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <h4>Productos:</h4>
+                <ul class="list-group"> 
+                    {% for producto in productos %}
+                    <li class="list-group-item">{{ producto.nombre_producto }} - {{ producto.cantidad }} unidades</li>
+                    {% endfor %}
+                </ul>
+            
+                <div class="col text-center">
+                    <button class="btn btn-primary" type="submit">
+                        Guardar
+                    </button>
+                </div>
+        </div>
+    </div>
+</main>
+
 </form>
 {% endblock %}

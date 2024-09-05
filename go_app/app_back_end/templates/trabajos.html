@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Presupuestos Aprobados</h1>
-<ul>
-    {% for presupuesto in presupuestos %}
-    <li>                                                                                                                                                            
-        <h3>{{ presupuesto.nombre_trabajo }} - {{ presupuesto.empresa }}</h3>
-        <a href="{% url 'duplicar_presupuesto' presupuesto.id %}">
-            <button>Generar OT</button>
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            <h1 class="text-center display-3 py-5">Presupuestos Aprobados</h1>
+
+            <ul class="list-group">
+                {% for presupuesto in presupuestos %}
+                <li class="list-group-item">                                                                                                                                                            
+                    <h3 class="col text-center">{{ presupuesto.nombre_trabajo }} - {{ presupuesto.empresa }}</h3>
+                    <a class="col text-center" href="{% url 'duplicar_presupuesto' presupuesto.id %}">
+                        <div class="col text-center">
+                            <button class="btn btn-secondary">Generar OT</button>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</main>
 
 {% endblock %}

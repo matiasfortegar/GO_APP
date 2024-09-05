@@ -2,21 +2,29 @@
 
 {% block content %}
 
-<h1>Presupuestos</h1>
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            
+            <h1 class="text-center display-3 py-5">Presupuestos</h1>
 
-<ul>
-    {% for presupuesto in presupuestos %}
-    <li>
-        <a href="{% url 'presupuestos_detalle' presupuesto.id %}">
-            <h1>{{ presupuesto.nombre_trabajo }}</h1>
-            <p>{{ presupuesto.empresa }}</p>
-    
-            <a href="{% url 'agregar_productos' presupuesto.id %}" class="boton">
-                <button>Agregar otro producto</button>
-            </a>  
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+            <ul class="list-group">
+                {% for presupuesto in presupuestos %}
+                <li class="list-group-item"> 
+                    <a class="text-center" href="{% url 'presupuestos_detalle' presupuesto.id %}">
+                        <h3 class="fw-bold-text-success">{{ presupuesto.nombre_trabajo }}</h3>
+                    </a>
+                        <p class="text-center">{{ presupuesto.empresa }}</p>
+                    <a class="text-center" href="{% url 'agregar_productos' presupuesto.id %}" class="boton">
+                        <div class="col text-center">
+                            <button class="btn btn-secondary">Agregar otro producto</button>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul> 
+        </div>
+    </div>
+</main>
 
 {% endblock %}

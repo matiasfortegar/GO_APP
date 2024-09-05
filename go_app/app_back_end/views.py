@@ -7,6 +7,7 @@ from cotizacion.forms import PresupuestoForm, ProductoForm
 from trabajos.models import OrdenTrabajo, ProductoOrden
 from cotizacion.models import Presupuesto, Producto
 from django.forms import inlineformset_factory
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -35,9 +36,10 @@ def signup(request):
         
         return render(request, 'signup.html',{
             'form' : UserCreationForm,
-            "error" : 'Contraseña no cohincide'
+            "error" : 'Contraseña no coincide'
         })
 
+@login_required
 def trabajos(request):
     # Filtrar solo los presupuestos aprobados
     presupuestos_aprobados = Presupuesto.objects.filter(aprobado=True)
@@ -50,7 +52,7 @@ def trabajos(request):
         context = {'presupuestos': presupuestos_aprobados}
         return render(request, 'trabajos.html', context)
 """
-
+@login_required
 def duplicar_presupuesto(request, presupuesto_id):
     # Obtener el presupuesto y sus productos asociados
     presupuesto = get_object_or_404(Presupuesto, id=presupuesto_id)
@@ -87,13 +89,13 @@ def duplicar_presupuesto(request, presupuesto_id):
     return render(request, 'duplicar_presupuesto.html', context)
 
 
-
+@login_required
 def presupuestos(request):
    presupuestos = Presupuesto.objects.all()
    context = {'presupuestos':presupuestos}
    return render(request, 'presupuestos.html', context)
 
-
+@login_required
 def agregar_productos(request, presupuesto_id):
     presupuesto = get_object_or_404(Presupuesto, id=presupuesto_id)
     ProductoFormSet = inlineformset_factory(Presupuesto, Producto, form=ProductoForm, extra=1)
@@ -109,6 +111,7 @@ def agregar_productos(request, presupuesto_id):
     context = {'formset': formset, 'presupuesto': presupuesto}
     return render(request, 'agregar_productos.html', context)
 
+@login_required
 def presupuestos_detalle(request, presupuesto_id):
    if request.method =='GET':
         presupuesto = get_object_or_404(Presupuesto, pk=presupuesto_id)
@@ -125,6 +128,7 @@ def presupuestos_detalle(request, presupuesto_id):
            context = {'presupuesto': presupuesto, 'form': form, 'error': "Error al actulizar"}
            return render(request, 'presupuestos_detalle.html', context)
 
+@login_required
 def crear_presupuestos(request):
     form = PresupuestoForm()
 
@@ -136,13 +140,14 @@ def crear_presupuestos(request):
     context = {'form': form}
     return render(request, 'crear_presupuestos.html', context)
 
-
+@login_required
 def crear_trabajo(request):
    return render(request, 'trabajos.html', {
       'form': TrabajoPresupuestoForm,
       'form': TrabajoProductoForm,
    })
 
+@login_required
 def cerrar_sesion(request):
    logout(request)
    return redirect('home')

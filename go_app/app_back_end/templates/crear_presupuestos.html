@@ -2,15 +2,20 @@
 
 {% block content %}
 
-<h1>Crear Presupuesto</h1>
+<main class="container">
+    <h1 class="text-center">Crear Presupuesto</h1>
+    <form method="POST" class="card card-body">
+        {% csrf_token %}
+        {{form.as_p}}
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    
-    <button type="submit">
-        Guardar
-    </button>
-</form>
+        <div class="col text-center">
+            <button class="btn btn-primary" type="submit">
+                Guardar
+            </button>
+        </div>
+        
+    </form>
+</main>
+
 
 {% endblock %}
