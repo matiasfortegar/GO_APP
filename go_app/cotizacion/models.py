@@ -36,7 +36,7 @@ class Presupuesto(models.Model):
     
 
 class Producto(models.Model):
-    presupuesto = models.ForeignKey(Presupuesto, related_name='mas_productos', on_delete=models.CASCADE)
+    presupuesto = models.ForeignKey(Presupuesto, on_delete=models.CASCADE, related_name="productos")
     nombre_producto = models.CharField(max_length=255)
     cantidad = models.PositiveIntegerField()
     cantidad_pliego = models.PositiveIntegerField()

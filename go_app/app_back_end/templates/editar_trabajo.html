@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">Editar Trabajo</h1>
+
+            <form method="POST" class="card card-body">
+                {% csrf_token %}
+                {{ form_presupuesto.as_p }}
+    
+                <h3>Productos</h3>
+    
+                {% for form_producto in productos_forms %}
+                    <div class="producto-form">
+                        {{ form_producto.as_p }}
+                    </div>
+                {% endfor %}
+    
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+
+        </div>
+    </div>
+</main>
+{% endblock %}

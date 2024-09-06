@@ -26,3 +26,4 @@ class ProductoOrden(models.Model):
 
     def __str__(self):
         return f"{self.nombre_producto} ({self.orden_trabajo})"
+

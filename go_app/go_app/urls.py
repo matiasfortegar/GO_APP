@@ -22,11 +22,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
-    path('trabajos/', views.trabajos, name='trabajos'),
     path('presupuestos/', views.presupuestos, name='presupuestos'),
     path('presupuestos/<int:presupuesto_id>/agregar_productos/', views.agregar_productos, name='agregar_productos'),
     path('presupuestos/<int:presupuesto_id>/', views.presupuestos_detalle, name='presupuestos_detalle'),
     path('trabajos/<int:presupuesto_id>/duplicar/', views.duplicar_presupuesto, name='duplicar_presupuesto'),
+    path('presupuestos_aprobados/', views.ver_presupuestos_aprobados, name='presupuestos_aprobados'),  # Nueva URL para presupuestos aprobados
+    path('trabajos/', views.crear_trabajo, name='trabajos'),  # URL para trabajos duplicados
+    path('trabajos/<int:trabajo_id>/editar/', views.editar_trabajo, name='editar_trabajo'),  # Usamos trabajo_id
     path('crear_presupuestos/', views.crear_presupuestos, name='crear_presupuestos'),
     path('logout/', views.cerrar_sesion, name='logout'),
     path('login/', views.iniciar_sesion, name='login'),
