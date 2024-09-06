@@ -148,7 +148,6 @@ def duplicar_presupuesto(request, presupuesto_id):
 """
 
 
-
 @login_required
 def presupuestos(request):
    presupuestos = Presupuesto.objects.all()
